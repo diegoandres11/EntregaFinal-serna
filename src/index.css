@@ -69,5 +69,9 @@ button:focus-visible {
 */
 
 .carrito{
-  color:aliceblue
+  color:aliceblue;
+}
+
+#logo{
+  width: 100px;
 }

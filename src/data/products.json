@@ -1,0 +1,23 @@
+[
+	{
+		"name": "Selección Alemania",
+		"id": 1,
+		"category": "s",
+		"detail": "playera de la selección de alemania 2024; diseñada y comercializada por la compañia adidas",
+		"img": "https://www.aisope.com.pe/images/BZQM/WCPH317_1.jpg"
+	},
+	{
+		"name": "Selección Colombia",
+		"id": 2,
+		"category": "s",
+		"detail": "playera de la selección de Colombia 2024; diseñada y comercializada por la compañia adidas",
+		"img": "https://prochampions.vtexassets.com/arquivos/ids/852936/Adidas-Fcf-H-Jsy-Camiseta-Manga-Corta_IP8279_03.png?v=638460560332170000"
+	},
+	{
+		"name": "Selección Francia",
+		"id": 3,
+		"category": "l",
+		"detail": "playera de la selección de Francia 2024; diseñada y comercializada por la compañia nike",
+		"img": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ec51d9f7-15bc-47b2-9e1c-80191dd3d4e2/jersey-de-f%C3%BAtbol-dri-fit-de-la-selecci%C3%B3n-nacional-de-francia-local-2024-stadium-kylian-mbapp%C3%A9-G9PPXz.png"
+	}
+]
