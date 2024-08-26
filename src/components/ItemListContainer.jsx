@@ -1,8 +1,20 @@
 
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
-import { Container, Card, Button } from "react-bootstrap"
-import data from "../data/products.json"
+import { Container,Row, Col, Card, Button } from "react-bootstrap"
+import {
+	getFirestore,
+	getDoc,
+	doc,
+	updateDoc,
+	collection,
+	getDocs,
+	query,
+	where,
+	limit,
+	addDoc,
+  } from "firebase/firestore";
+
 
 export default function ItemListContainer(){
     const [items, setItems] = useState([])
@@ -10,41 +22,48 @@ export default function ItemListContainer(){
 	const { id } = useParams()
 
 	useEffect(() => {
-		new Promise((resolve,reject)=>{
-			setTimeout(()=>resolve(data), 2000)
+		const db = getFirestore();
+		const refCollection= !id
+		? collection(db,"items")
+		:query(collection(db,"items"), where("categoryid", "==", id))
+
+
+		getDocs(refCollection).then((snapshot) => {
+		setItems(
+			snapshot.docs.map((doc)=>{
+				return {id:doc.id, ...doc.data()}
+			})
+		)
 		})
-		.then((response)=> {
-			if (!id){
-				setItems(response)
-			}else{
-				let filtered= response.filter((i) => i.category===id)	
-				setItems(filtered)
-				console.log("fitaddoo")
-			}
-			
-		})
-		.finally(()=>setLoading(false))}, [id])
+		.finally(()=>{setLoading(false)})
+		}, [id])
 
 	if (loading) return <Container><img src="https://i.gifer.com/ZKZg.gif" alt="loading" /></Container>
 
+
 	return (
 		<Container>
+			{console.log(items)}
 			<h1>productos</h1>
 			<Container className="d-flex flex-wrap">
-				{items.map(product => (
-					<Card key={product.id} style={{ flex: 1 }}>
-						<Card.Img variant="top" src={product.img} height="200" />
+				<Row>
+					{items.map((product, index) => (
+					<Col md={4} key={product.id} className="mb-4">
+						<Card>
+						<Card.Img variant="top" src={product.imageid} height="200" />
 						<Card.Body>
-							<Card.Title>{product.name}</Card.Title>
-							<Card.Text>{product.detail}</Card.Text>
+							<Card.Title>talla: {product.categoryid}</Card.Title>
+							<Card.Text>{product.description}</Card.Text>
 							<Card.Text>{product.category}</Card.Text>
 							<Link to={`/item/${product.id}`}>
-								<Button variant="primary">ver mas</Button>
+							<Button variant="primary">ver más</Button>
 							</Link>
 						</Card.Body>
-					</Card>
-				))}
-			</Container>
+						</Card>
+					</Col>
+					))}
+				</Row>
+    		</Container>
 		</Container>
 	)
 }

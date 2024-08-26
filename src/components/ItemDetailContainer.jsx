@@ -1,22 +1,31 @@
 
-import { useState, useEffect } from "react"
+import {useContext, useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-{/** */}import {Container} from "react-bootstrap"
-import data from "../data/products.json"
+import {Container} from "react-bootstrap"
+import Card from 'react-bootstrap/Card';
+import { getFirestore, getDoc, doc, count } from "firebase/firestore"
+import { ItemsContext } from "../contexts/ItemsContexts"
+import { ItemCount } from "./ItemCount"
+import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 
 export default function ItemDetailContainer(){
     const [item, setItem] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const { id } = useParams()
 
+	
+	const {addItem}=useContext(ItemsContext)
+
+	const onAdd=(count)=>{
+		addItem({...item, quantity: count })
+	}
+
 	useEffect(() => {
-		new Promise((resolve,reject)=>{
-			setTimeout(()=>resolve(data), 2000)
-		})
-		.then((response)=> {
-				const finded= response.find((i) => i.id===Number(id))	
-				setItem(finded)
-			
+		const db=getFirestore()
+		const refDoc=doc(db, "items", id)
+		getDoc(refDoc).then((snapshot)=>{
+			setItem({id: snapshot.id, ...snapshot.data()})
 		})
 		.finally(()=>setLoading(false))}, [id])
 
@@ -24,11 +33,22 @@ export default function ItemDetailContainer(){
 
 	return (
 		<Container className="mt-4">
-			<h1>producto</h1>
-            <h2>{item.name}</h2>
-            <img src={item.img} alt={item.name} height={200} />
-            <h4>talla: {item.category}</h4>
-            <p>{item.detail}</p>
+			<h1>producto{/*{value} */}</h1>
+			<Card style={{display:'flex', flexDirection:'row'}} className="bg-dark text-white" >
+				<img src={item.imageid} height={270} width={400}/>
+				<div style={{display:'flex', flexDirection:'column', marginLeft:'20%', alignItems:'center'}}>
+					<Card.Title>{item.title}</Card.Title>
+					<Card.Text>
+					{item.description}
+					</Card.Text>
+					<Card.Text>talla: {item.categoryid}</Card.Text>
+					<Card.Text>stock disponible: {item.stock}</Card.Text>
+				</div>
+				
+					
+    		</Card>
+			<ItemCount stock={item.stock} onAdd={onAdd}/>
+			
 			
 		</Container>
 	)
