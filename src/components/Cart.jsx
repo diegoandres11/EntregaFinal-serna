@@ -88,19 +88,5 @@ export const  Cart=()=>{
 
 }
 
-{/**<form>
-            <div>
-                <label>Nombre</label>
-                <input value={buyer.name} onChange={handleChange} name="name"/>
-            </div>
-            <div>
-                <label>Email</label>
-                <input value={buyer.email} onChange={handleChange} name="email"/>
-            </div>
-            <div>
-                <label>Telefono</label>
-                <input value={buyer.phone} onChange={handleChange} name="phone"/>
-            </div>
-            <button type="button" onClick={handleOrder}>Comprar</button>
-        </form> */}
+
 

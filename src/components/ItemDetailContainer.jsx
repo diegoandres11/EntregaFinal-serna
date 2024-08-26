@@ -6,8 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { getFirestore, getDoc, doc, count } from "firebase/firestore"
 import { ItemsContext } from "../contexts/ItemsContexts"
 import { ItemCount } from "./ItemCount"
-import Button from 'react-bootstrap/Button';
-import Nav from 'react-bootstrap/Nav';
+
 
 export default function ItemDetailContainer(){
     const [item, setItem] = useState(null)
@@ -33,7 +32,7 @@ export default function ItemDetailContainer(){
 
 	return (
 		<Container className="mt-4">
-			<h1>producto{/*{value} */}</h1>
+			<h1>producto</h1>
 			<Card style={{display:'flex', flexDirection:'row'}} className="bg-dark text-white" >
 				<img src={item.imageid} height={270} width={400}/>
 				<div style={{display:'flex', flexDirection:'column', marginLeft:'20%', alignItems:'center'}}>
