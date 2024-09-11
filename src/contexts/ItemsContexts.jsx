@@ -8,7 +8,9 @@ export const ItemsContext= createContext()
 export const Provider=({children})=>{
     const [items, setItems]=useState([])
 
-    const reset=()=> setItems([])
+    const reset=()=>{
+        setItems([])
+    } 
 
     const addItem=(item)=>{
         const alreadyExits=items.some((i)=> i.id===item.id)
@@ -26,9 +28,8 @@ export const Provider=({children})=>{
         }
     }
 
-    const removeItem=(id)=>{
-        const remove=items.find(i=> i.id !== id)
-        setItems(remove)
+    const removeItem = (id) => {
+        setItems(prevItems => prevItems.filter(item => item.id !== id));
     }
     return <ItemsContext.Provider value={{ addItem, items , reset, removeItem}}>{children}</ItemsContext.Provider>
 }

@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { getFirestore, getDoc, doc, count } from "firebase/firestore"
 import { ItemsContext } from "../contexts/ItemsContexts"
 import { ItemCount } from "./ItemCount"
+import { useCart } from "../contexts/CartContext";
 
 
 export default function ItemDetailContainer(){
@@ -15,9 +16,11 @@ export default function ItemDetailContainer(){
 
 	
 	const {addItem}=useContext(ItemsContext)
+	const {addToCart}=useCart()
 
 	const onAdd=(count)=>{
 		addItem({...item, quantity: count })
+		addToCart(count)
 	}
 
 	useEffect(() => {

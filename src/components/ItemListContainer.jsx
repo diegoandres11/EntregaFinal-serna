@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import { Container,Row, Col, Card, Button } from "react-bootstrap"
+import './itemListContainer.css'
 import {
 	getFirestore,
 	getDoc,
@@ -43,13 +44,12 @@ export default function ItemListContainer(){
 
 	return (
 		<Container>
-			{console.log(items)}
 			<h1>productos</h1>
-			<Container className="d-flex flex-wrap">
+			<Container id="container-main" className="d-flex flex-wrap">
 				<Row>
 					{items.map((product, index) => (
 					<Col md={4} key={product.id} className="mb-4">
-						<Card>
+						<Card id="card">
 						<Card.Img variant="top" src={product.imageid} height="200" />
 						<Card.Body>
 							<Card.Title>talla: {product.categoryid}</Card.Title>
